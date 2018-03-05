@@ -6,6 +6,8 @@
     "gulp-babel": "^7.0.0",
     "gulp-browserify": "^0.5.1",
     "gulp-plumber": "^1.2.0",
-    "nodejs-websocket": "^1.7.1"
+    "nodejs-websocket": "^1.7.1",
+    "webpack": "^4.1.0",
+    "webpack-cli": "^2.0.10"
   }
 }

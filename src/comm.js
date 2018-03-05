@@ -20,7 +20,7 @@ ws.onmessage = function(e){
         if(json.user){
             console.log("游客"+json.user)
             board = new Board({
-                bw: 75,
+                bw: 100,
                 bm: 50,
                 group: json.user % 2 == 0 ? 'b':'r'
             })
