@@ -72,7 +72,7 @@ export default class Board {
     }, 500)
   }
   websocketEvent(json) {
-    
+    /* 如果本地棋步数 >= 传来的步数 则不处理 */
     if(this.step>=json.step)return
     let currentPos = json.currentPos
     let targetPos = json.targetPos

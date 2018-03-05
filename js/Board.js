@@ -82,7 +82,7 @@ var Board = function () {
   }, {
     key: 'websocketEvent',
     value: function websocketEvent(json) {
-
+      /* 如果本地棋步数 >= 传来的步数 则不处理 */
       if (this.step >= json.step) return;
       var currentPos = json.currentPos;
       var targetPos = json.targetPos;
