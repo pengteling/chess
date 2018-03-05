@@ -228,13 +228,13 @@ export default class Board {
     let bw = this.bw
     let bm = this.bm
 
-    canvas.width = bw * 8 + bm * 2;
-    canvas.height = bw * 9 + bm * 2;
+    canvas.width = bw * 8 + bm * 2
+    canvas.height = bw * 9 + bm * 2
 
-    context.lineWidth = 30;
-    context.strokeRect(0, 0, canvas.width, canvas.height);
+    context.lineWidth = 30
+    context.strokeRect(0, 0, canvas.width, canvas.height)
 
-    context.lineWidth = 2;
+    context.lineWidth = 2
 
 
     for (var i = 0; i < 4; i++) {
@@ -250,46 +250,46 @@ export default class Board {
       }
     }
 
-    context.strokeRect(bm, bm + bw * 4, bw * 8, bw);
-    context.fillStyle = "#eb0000";
-    context.font = `bolder ${bw * 2 / 3}px 'Microsoft Yahei'`;
-    context.textBaseline = "middle";
-    context.fillText("楚河", canvas.width * 0.2, bm + bw * 4.5);
-    let fontW = context.measureText("汉界").width;
-    context.fillText("汉界", canvas.width * 0.8 - fontW, bm + bw * 4.5);
+    context.strokeRect(bm, bm + bw * 4, bw * 8, bw)
+    context.fillStyle = "#eb0000"
+    context.font = `bolder ${bw * 2 / 3}px 'Microsoft Yahei'`
+    context.textBaseline = "middle"
+    context.fillText("楚河", canvas.width * 0.2, bm + bw * 4.5)
+    let fontW = context.measureText("汉界").width
+    context.fillText("汉界", canvas.width * 0.8 - fontW, bm + bw * 4.5)
 
     //斜线
-    context.beginPath();
-    context.moveTo(bm + 3 * bw, bm);
-    context.lineTo(bm + 5 * bw, bm + bw * 2);
-    context.stroke();
+    context.beginPath()
+    context.moveTo(bm + 3 * bw, bm)
+    context.lineTo(bm + 5 * bw, bm + bw * 2)
+    context.stroke()
 
-    context.beginPath();
-    context.moveTo(bm + 5 * bw, bm);
-    context.lineTo(bm + 3 * bw, bm + bw * 2);
-    context.stroke();
-
-
-    context.beginPath();
-    context.moveTo(bm + 3 * bw, bm + bw * 9);
-    context.lineTo(bm + 5 * bw, bm + bw * 7);
-    context.stroke();
-
-    context.beginPath();
-    context.moveTo(bm + 5 * bw, bm + bw * 9);
-    context.lineTo(bm + 3 * bw, bm + bw * 7);
-    context.stroke();
+    context.beginPath()
+    context.moveTo(bm + 5 * bw, bm)
+    context.lineTo(bm + 3 * bw, bm + bw * 2)
+    context.stroke()
 
 
-    context.lineWidth = 3;
-    context.strokeStyle = "#eb0000";
-    context.lineJoin = "round";
-    context.lineCap = "round";
+    context.beginPath()
+    context.moveTo(bm + 3 * bw, bm + bw * 9)
+    context.lineTo(bm + 5 * bw, bm + bw * 7)
+    context.stroke()
 
-    drawPoint(1, 2);
-    drawPoint(7, 2);
-    drawPoint(1, 7);
-    drawPoint(7, 7);
+    context.beginPath()
+    context.moveTo(bm + 5 * bw, bm + bw * 9)
+    context.lineTo(bm + 3 * bw, bm + bw * 7)
+    context.stroke()
+
+
+    context.lineWidth = 3
+    context.strokeStyle = "#eb0000"
+    context.lineJoin = "round"
+    context.lineCap = "round"
+
+    drawPoint(1, 2)
+    drawPoint(7, 2)
+    drawPoint(1, 7)
+    drawPoint(7, 7)
 
     for (var i = 0; i < 5; i++) {
       drawPoint(i * 2, 3);
@@ -298,41 +298,41 @@ export default class Board {
 
 
     function drawPoint(x, y) {
-      context.save();
+      context.save()
 
-      context.translate(bm + bw * x, bm + bw * y);
+      context.translate(bm + bw * x, bm + bw * y)
 
       if (x > 0) {
-        context.beginPath();
-        context.lineTo(-6, -16);
-        context.lineTo(-6, -6);
-        context.lineTo(-16, -6);
-        context.stroke();
+        context.beginPath()
+        context.lineTo(-6, -16)
+        context.lineTo(-6, -6)
+        context.lineTo(-16, -6)
+        context.stroke()
 
-        context.beginPath();
-        context.lineTo(-6, 16);
-        context.lineTo(-6, 6);
-        context.lineTo(-16, 6);
-        context.stroke();
+        context.beginPath()
+        context.lineTo(-6, 16)
+        context.lineTo(-6, 6)
+        context.lineTo(-16, 6)
+        context.stroke()
       }
 
       if (x < 8) {
 
 
-        context.beginPath();
-        context.lineTo(6, -16);
-        context.lineTo(6, -6);
-        context.lineTo(16, -6);
-        context.stroke();
+        context.beginPath()
+        context.lineTo(6, -16)
+        context.lineTo(6, -6)
+        context.lineTo(16, -6)
+        context.stroke()
 
-        context.beginPath();
-        context.lineTo(6, 16);
-        context.lineTo(6, 6);
-        context.lineTo(16, 6);
-        context.stroke();
+        context.beginPath()
+        context.lineTo(6, 16)
+        context.lineTo(6, 6)
+        context.lineTo(16, 6)
+        context.stroke()
       }
 
-      context.restore();
+      context.restore()
     }
 
   }

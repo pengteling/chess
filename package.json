@@ -5,6 +5,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-browserify": "^0.5.1",
+    "gulp-plumber": "^1.2.0",
     "nodejs-websocket": "^1.7.1"
   }
 }
