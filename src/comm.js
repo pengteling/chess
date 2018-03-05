@@ -25,6 +25,7 @@ ws.onmessage = function(e){
                 group: json.user % 2 == 0 ? 'b':'r'
             })
             board.init()
+            console.log(board)
         }else{        
             board.websocketEvent(json)
         }

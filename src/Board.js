@@ -5,7 +5,7 @@ export default class Board {
   constructor(props) {
     this.bw = props.bw
     this.bm = props.bm
-    this.chessArr = [
+    this.arr = [
       ["c", "m", "x", "s", "j", "s", "x", "m", "c"],
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, "p", 0, 0, 0, 0, 0, "p", 0],
@@ -17,7 +17,7 @@ export default class Board {
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       ["c", "m", "x", "s", "j", "s", "x", "m", "c"]
     ]
-    this.arr = this.chessArr
+    //this.arr = this.chessArr
     this.group = props.group
     this.step = 0
     this.steps = []
@@ -28,7 +28,7 @@ export default class Board {
   }
   init() {
 
-    this.chessArr.forEach((row, i) => {
+    this.arr.forEach((row, i) => {
       row.forEach((item, j) => {
         //console.log(item)
         let group
@@ -51,11 +51,12 @@ export default class Board {
           pos: {
             x: j,
             y: i
-          },
-          point: {
-            x: this.bm + this.bw * j,
-            y: this.bm + this.bw * i,
           }
+          // ,
+          // point: {
+          //   x: this.bm + this.bw * j,
+          //   y: this.bm + this.bw * i,
+          // }
 
         }
         if (item) { //图片缓存 不让图片闪烁
@@ -148,7 +149,8 @@ export default class Board {
       let mousePos
       this.arr.forEach((row, i) => {
         row.forEach((item, j) => {
-          if (dis(item.point.x, item.point.y, mouse.x, mouse.y) < 0.425 * this.bw) {
+          let point = this.posToPoint(item.pos)
+          if (dis(point.x, point.y, mouse.x, mouse.y) < 0.425 * this.bw) {
             mousePos = {
               // x: item.pos.x,
               // y: item.pos.y

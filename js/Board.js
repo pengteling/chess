@@ -23,8 +23,8 @@ var Board = function () {
 
     this.bw = props.bw;
     this.bm = props.bm;
-    this.chessArr = [["c", "m", "x", "s", "j", "s", "x", "m", "c"], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, "p", 0, 0, 0, 0, 0, "p", 0], ["z", 0, "z", 0, "z", 0, "z", 0, "z"], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], ["z", 0, "z", 0, "z", 0, "z", 0, "z"], [0, "p", 0, 0, 0, 0, 0, "p", 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], ["c", "m", "x", "s", "j", "s", "x", "m", "c"]];
-    this.arr = this.chessArr;
+    this.arr = [["c", "m", "x", "s", "j", "s", "x", "m", "c"], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, "p", 0, 0, 0, 0, 0, "p", 0], ["z", 0, "z", 0, "z", 0, "z", 0, "z"], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], ["z", 0, "z", 0, "z", 0, "z", 0, "z"], [0, "p", 0, 0, 0, 0, 0, "p", 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], ["c", "m", "x", "s", "j", "s", "x", "m", "c"]];
+    //this.arr = this.chessArr
     this.group = props.group;
     this.step = 0;
     this.steps = [];
@@ -38,7 +38,7 @@ var Board = function () {
     value: function init() {
       var _this = this;
 
-      this.chessArr.forEach(function (row, i) {
+      this.arr.forEach(function (row, i) {
         row.forEach(function (item, j) {
           //console.log(item)
           var group = void 0;
@@ -60,13 +60,13 @@ var Board = function () {
             pos: {
               x: j,
               y: i
-            },
-            point: {
-              x: _this.bm + _this.bw * j,
-              y: _this.bm + _this.bw * i
-            }
+              // ,
+              // point: {
+              //   x: this.bm + this.bw * j,
+              //   y: this.bm + this.bw * i,
+              // }
 
-          };
+            } };
           if (item) {
             //图片缓存 不让图片闪烁
             _this.imgArr[group + "_" + item] = new Image();
@@ -159,7 +159,8 @@ var Board = function () {
         };var mousePos = void 0;
         _this2.arr.forEach(function (row, i) {
           row.forEach(function (item, j) {
-            if (dis(item.point.x, item.point.y, mouse.x, mouse.y) < 0.425 * _this2.bw) {
+            var point = _this2.posToPoint(item.pos);
+            if (dis(point.x, point.y, mouse.x, mouse.y) < 0.425 * _this2.bw) {
               mousePos = {
                 // x: item.pos.x,
                 // y: item.pos.y
