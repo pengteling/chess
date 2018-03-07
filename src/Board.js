@@ -300,21 +300,64 @@ export default class Board {
 
 
     function drawPoint(x, y) {
-      context.save()
+        let sw = bw * 6 / 75
+        let lw = bw * 16 / 75
+        context.save()
 
-      context.translate(bm + bw * x, bm + bw * y)
+        context.translate(bm + bw * x, bm + bw * y)    
+        
+        // if (x > 0) {
+        //   context.save()
+        //   context.beginPath()
+        //   context.rotate(0*Math.PI/180)          
+        //   context.lineTo(-6, -16)
+        //   context.lineTo(-6, -6)
+        //   context.lineTo(-16, -6)        
+        //   context.stroke()
+        //   context.restore()
 
+        //   context.save()
+        //   context.beginPath()
+        //   context.rotate(-90*Math.PI/180)
+        //   context.lineTo(-6, -16)
+        //   context.lineTo(-6, -6)
+        //   context.lineTo(-16, -6)        
+        //   context.stroke()
+        //   context.restore()
+        // }
+        // if (x < 8) {
+        //   context.save()
+        //   context.beginPath()
+        //   context.rotate(90*Math.PI/180)
+        //   context.lineTo(-6, -16)
+        //   context.lineTo(-6, -6)
+        //   context.lineTo(-16, -6)        
+        //   context.stroke()
+        //   context.restore()
+
+        //   context.save()
+        //   context.beginPath()
+        //   context.rotate(180*Math.PI/180)
+        //   context.lineTo(-6, -16)
+        //   context.lineTo(-6, -6)
+        //   context.lineTo(-16, -6)        
+        //   context.stroke()
+        //   context.restore()
+        // }
+
+        
+      
       if (x > 0) {
         context.beginPath()
-        context.lineTo(-6, -16)
-        context.lineTo(-6, -6)
-        context.lineTo(-16, -6)
+        context.lineTo(-sw, -lw)
+        context.lineTo(-sw, -sw)
+        context.lineTo(-lw, -sw)
         context.stroke()
 
         context.beginPath()
-        context.lineTo(-6, 16)
-        context.lineTo(-6, 6)
-        context.lineTo(-16, 6)
+        context.lineTo(-sw, lw)
+        context.lineTo(-sw, sw)
+        context.lineTo(-lw, sw)
         context.stroke()
       }
 
@@ -322,18 +365,18 @@ export default class Board {
 
 
         context.beginPath()
-        context.lineTo(6, -16)
-        context.lineTo(6, -6)
-        context.lineTo(16, -6)
+        context.lineTo(sw, -lw)
+        context.lineTo(sw, -sw)
+        context.lineTo(lw, -sw)
         context.stroke()
 
         context.beginPath()
-        context.lineTo(6, 16)
-        context.lineTo(6, 6)
-        context.lineTo(16, 6)
+        context.lineTo(sw, lw)
+        context.lineTo(sw, sw)
+        context.lineTo(lw, sw)
         context.stroke()
       }
-
+      
       context.restore()
     }
 
@@ -365,7 +408,7 @@ export default class Board {
 
   putPieces() {
     context.clearRect(0, 0, canvas.width, canvas.height)
-    this.drawBoard()
+    this.drawBoard()    
     this.arr.forEach((row, i) => {
       row.forEach((item, j) => {
         if (item.piece) {
