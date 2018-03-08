@@ -65,85 +65,67 @@ context.globalCompositeOperation = "source-over"
 如：左上第一个炮的坐标为{x:1,y:2}
 Canvas坐标系与单位坐标系可以简单的进行转换
 
-
-
 drawImage(img,pos.x,pos.y) 注意异步处理
 
 #### 面向对象的改造
 
-** 环境搭建**
+**环境搭建**
+gulp + babel 
+如果需要支持模块化，则需要使用browersify或webpack来进行打包我们的代码
 
-gulp + babel
+```mermaid
+graph TD;
+  棋盘-->棋子1;
+  棋盘-->棋子2;  
+  棋盘-->棋子3;
+  棋盘-->棋子...;
+  
+```
 
-**board 棋盘对象**
+**棋盘 Board**
+*Attributes*
+|参数|说明|类型|默认值|
+|---|---|---|---|
+|bm|边距|number|50|
+|bw|棋盘格子大小|number|75|
+|group|执棋方|'r'或'b'|'r'|
+|current|当前选中棋子|object|null|
+|step|步数|number|0|
+|steps|保存的走棋数据|array|[]|
+|isover|棋局是否结束|boolean|false|
+|imgArr|缓存的棋子图像对象|array||
+|arr|棋盘布局数据|array||
 
-属性
+*Event*
 
-bw 棋盘格子尺寸
-
-bm 棋盘边距（格子到边框距离）
-
-arr[] 棋盘数据（二维数组存储每个着棋点的数据 arr[0] = [point,pos,piece]）
-
-current 当前选中的棋子
-
-step 步数
-
-steps[] 存储每一步走棋
-
-方法
-
-init()
-
-putPieces() 
-
-initEvent()
-
-websocketEvent()
-
-undo()
-
-
-
-**piece 棋子对象**
-
-属性
-
-text 文字
-
-group 红方或黑方
-
-pos {x:0,y:0}
-
-方法
-
-canPut()
-
-put()
-
-canEat()
-
-eat()
-
-各种棋子的走法
+|事件名称|说明|参数|
+|---|---|---|
+|init|初始化棋盘||
+|drawBoard|绘制棋盘||
+|putPieces|布棋，棋盘数据改变后调用后重新布棋|
+|movePiece|走棋（包括吃子）||
+|websocketEvent|接送websocket后触发事件|json|
+|initEvent|鼠标点击触发事件|
+|undo|悔棋
 
 
+**棋子 Piece**
+*Attributes*
+|参数|说明|类型|默认值|
+|---|---|---|---|
+|group|红方或黑方|'r'或'b'||
+|text|棋子文字（类型）|string||
+|pos|当前坐标|object||
+
+*Event*
+
+|事件名称|说明|参数|
+|---|---|---|
+|canEat|是否可吃|目标坐标位,arr,group|
+|canPut|是否可以走棋|目标坐标位,arr,group|
+|c、m、x等|各类棋子的路径规则|targetPos,arr,group|
 
 #### 棋子走法及规则
-
-initEvent() 根据鼠标点击获得 mousePos（着棋点） 根据当前current值确定是选中、切换、走棋、吃子
-
-websocketEvent() 从ws服务器获取数据实现同步走棋
-
-canPut(targetPos) 是否可以走到这个位置去
-
-put(targetPos)  走棋
-
-canEat(targetPiece) 是否可以吃目标棋子
-
-eat(targetPiece) 吃子
-
-
 
 每种类型的棋子对应自己的走法，除炮外，所有棋子都是在自己的走棋路径上吃子
 
@@ -163,7 +145,7 @@ s()  仕走斜线 不能出宫
 
 ![](images/md/s.png)
 
-j()  走相邻位置（直线） 不能出宫
+j()  走相邻位置（直线） 不能出宫 ,特殊情况可以吃掉对方的将
 
 ![](images/md/j.png)
 
@@ -181,25 +163,11 @@ z()  卒走直线 只能前进 过河后可以横走
 
 #### 悔棋
 
-steps[step] = {currentPieces, currentPos , targetPiece ,targetPos }
-
 undo() 
 
  两个位置都还原棋子， 原来走动的棋子 还要将pos恢复成原来的位置  
 
- steps[step] = null
-
- step--
-
- current = false
-
-
-
-
-
 #### 基于Websocket的对战改造
-
-
 
 HTML5规范中，WebSocket API 客户端-服务器的异步通信方法服务器和客户端可以在给定的时间范围内的任意时刻，相互推送信息。
 
@@ -207,17 +175,11 @@ HTML5规范中，WebSocket API 客户端-服务器的异步通信方法服务器
 
 **简单改造：**
 
-走棋传递及接收数据： {currentPos,targetPos}  根据数据改变current 触发websocketEvent(targetPos)
+走棋传递及接收数据： {currentPos,targetPos,step}  根据数据改变current 触发websocketEvent(targetPos)
 
 websocketEvent() 根据initEvent()简单改造
 
 悔棋发送数据"undo" 触发 undo()
-
-
-## 知识点
-
-
-
 
 
 #### webSocket API
@@ -288,15 +250,11 @@ gulp.watch("src/*.js",["default"]);
 
 ```
 
-
-
-
-
 #### 后续改造的思考
 
->1. 对战时 如何确定博弈双方，让自己只能走己方的棋子？
+1. 对战时 如何确定博弈双方，让自己只能走己方的棋子？
 
->2. 对战时 调整程序让各自操作的棋子都显示在下方？
+2. 对战时 调整程序让各自操作的棋子都显示在下方？
 
->3. 悔棋前 先取得对方的许可？
+3. 悔棋前 先取得对方的许可？
 
