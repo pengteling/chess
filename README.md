@@ -84,6 +84,7 @@ graph TD;
 
 **棋盘 Board**
 *Attributes*
+
 |参数|说明|类型|默认值|
 |---|---|---|---|
 |bm|边距|number|50|
